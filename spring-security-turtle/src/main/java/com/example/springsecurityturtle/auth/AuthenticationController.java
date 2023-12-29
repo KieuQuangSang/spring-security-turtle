@@ -15,11 +15,12 @@ public class AuthenticationController {
 
     private final AuthenticationService service;
 
-    //dùng để đăn ký
+    //dùng để đăng ký
     @PostMapping("/register")
     public ResponseEntity<AuthenticationResponse> register(
             @RequestBody RegisterRequest request
     ){
+        //trả về cho client, JWT token
         return ResponseEntity.ok(service.register(request));
     }
 
@@ -28,6 +29,7 @@ public class AuthenticationController {
     public ResponseEntity<AuthenticationResponse> authenticate(
             @RequestBody AuthenticationRequest request
     ){
+        //trả về cho client, JWT token
         return ResponseEntity.ok(service.authenticate(request));
     }
 }

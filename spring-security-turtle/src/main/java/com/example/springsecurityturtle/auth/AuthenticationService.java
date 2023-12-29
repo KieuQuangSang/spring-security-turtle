@@ -32,6 +32,9 @@ public class AuthenticationService {
                 .password(passwordEncoder.encode(request.getPassword()))//mã hóa password
                 .role(Role.USER)
                 .build();
+
+        // nên validate dữ liệu sau khi lấy dữ liệu từ client gửi về để tăng tính bảo mật
+
         repository.save(user);
 
         //tạo token
@@ -45,6 +48,9 @@ public class AuthenticationService {
     //xác thực người dùng
     public AuthenticationResponse authenticate(AuthenticationRequest request) {
         //xác thực thông tin người dùng
+
+        //trước khi xác thực người dùng nên validate dữ liệu để tránh việc dữ liệu có thể
+        // bị thay ổi trong quá trình gửi từ client đến máy chủ
         authenticationManager.authenticate(
                 new UsernamePasswordAuthenticationToken(
                         request.getEmail(),
