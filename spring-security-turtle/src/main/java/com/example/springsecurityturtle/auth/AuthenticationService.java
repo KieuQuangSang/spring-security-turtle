@@ -2,7 +2,6 @@ package com.example.springsecurityturtle.auth;
 
 import com.example.springsecurityturtle.config.JwtService;
 import com.example.springsecurityturtle.repositories.UserRepository;
-import com.example.springsecurityturtle.user.Role;
 import com.example.springsecurityturtle.user.User;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -30,7 +29,7 @@ public class AuthenticationService {
                 .lastName(request.getLastname())
                 .email(request.getEmail())
                 .password(passwordEncoder.encode(request.getPassword()))//mã hóa password
-                .role(Role.USER)
+                .role(request.getRole())
                 .build();
 
         // nên validate dữ liệu sau khi lấy dữ liệu từ client gửi về để tăng tính bảo mật

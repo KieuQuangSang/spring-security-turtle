@@ -30,6 +30,7 @@ public class User implements UserDetails {
     private String email;
     private String password;
 
+    //thêm quyen cho user. (sử dụng class enum thì user không cần phải có thuộc tính role)
     @Enumerated(EnumType.STRING)
     private Role role;
 

@@ -11,8 +11,15 @@ import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
+import static com.example.springsecurityturtle.user.Permission.ADMIN_READ;
+import static com.example.springsecurityturtle.user.Permission.USER_READ;
+import static com.example.springsecurityturtle.user.Role.ADMIN;
+import static com.example.springsecurityturtle.user.Role.USER;
+import static org.springframework.http.HttpMethod.GET;
+
 @Configuration
 @EnableWebSecurity
+
 @RequiredArgsConstructor
 public class SecurityConfiguration {
 
@@ -27,6 +34,14 @@ public class SecurityConfiguration {
         http.authorizeHttpRequests((request) -> request
                 .requestMatchers("/api/v1/auth/**")
                 .permitAll()
+
+                .requestMatchers("/api/v1/demo/hello").hasAnyAuthority(ADMIN.name(), USER.name())
+                .requestMatchers(GET ,"/api/v1/demo/hello").hasAnyAuthority(ADMIN_READ.name(), USER_READ.name())
+
+                .requestMatchers("/api/v1/demo/turtle").hasAuthority(ADMIN.name())
+                .requestMatchers(GET,"/api/v1/demo/turtle").hasAuthority(ADMIN_READ.name())
+
+
                 .anyRequest()
                 .authenticated()
         );
